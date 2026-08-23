@@ -88,11 +88,6 @@ body {
 
     cursor: pointer;
 
-    /*
-       Không dùng border lớn vì ảnh nền
-       đã có sẵn khung trắng.
-    */
-
     border: 0;
 
     padding: 0;
@@ -125,38 +120,6 @@ body {
     z-index: 1;
 
     pointer-events: none;
-}
-
-
-/* =========================================================
-   KẺ ĐỎ TRÊN CÁC Ô ẢNH
-   ========================================================= */
-
-.photo-slot::after {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 3;
-
-    pointer-events: none;
-
-    opacity: 0.55;
-
-    background-image:
-        linear-gradient(
-            rgba(150, 0, 0, 0.55) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(150, 0, 0, 0.55) 1px,
-            transparent 1px
-        );
-
-    background-size: 10px 10px;
 }
 
 
@@ -197,8 +160,9 @@ body {
 
 
 /*
-   Không để hover làm mất góc nghiêng
-   của từng ảnh.
+   Lưu ý:
+   Không có .photo-slot::after
+   nên sẽ KHÔNG còn sọc đỏ.
 */
 
 

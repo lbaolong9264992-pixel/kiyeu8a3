@@ -1,16 +1,29 @@
+/* =========================================================
+   KỈ YẾU 8A3
+   STYLE.CSS
+   ========================================================= */
+
+
+/* =========================
+   RESET
+   ========================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
-/* ========================= */
-/* TRANG WEB */
-/* ========================= */
+html {
+    scroll-behavior: smooth;
+}
 
 body {
+    margin: 0;
+    padding: 0;
+
     background: #111;
+
     font-family: Arial, sans-serif;
 
     display: flex;
@@ -20,9 +33,9 @@ body {
 }
 
 
-/* ========================= */
-/* KHUNG KỈ YẾU */
-/* ========================= */
+/* =========================
+   KHUNG TOÀN BỘ KỈ YẾU
+   ========================= */
 
 .yearbook {
     position: relative;
@@ -34,49 +47,67 @@ body {
     overflow: hidden;
 
     line-height: 0;
+
+    background: #f5f1df;
 }
 
 
-/* ========================= */
-/* ẢNH NỀN GỐC */
-/* ========================= */
+/* =========================
+   ẢNH THIẾT KẾ GỐC
+   ========================= */
 
 .background {
-    width: 100%;
-    height: auto;
+    position: relative;
 
     display: block;
 
+    width: 100%;
+    height: auto;
+
+    margin: 0;
+    padding: 0;
+
     user-select: none;
+
     pointer-events: none;
 }
 
 
-/* ========================= */
-/* Ô ẢNH */
-/* ========================= */
+/* =========================================================
+   CÁC Ô ẢNH
+   ========================================================= */
 
 .photo-slot {
     position: absolute;
 
     overflow: hidden;
 
-    cursor: pointer;
+    z-index: 20;
 
     background: #050505;
 
+    cursor: pointer;
+
     /*
-       Cho phép viền đỏ giống
-       các ô đen trong thiết kế
+       Không dùng border lớn vì ảnh nền
+       đã có sẵn khung trắng.
     */
 
-    border: 2px solid #111;
+    border: 0;
 
-    z-index: 10;
+    padding: 0;
+
+    line-height: normal;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
 }
 
 
-/* ẢNH ĐƯỢC CHỌN */
+/* =========================
+   ẢNH ĐƯỢC CHỌN
+   ========================= */
 
 .photo-slot img {
     position: absolute;
@@ -92,12 +123,14 @@ body {
     display: none;
 
     z-index: 1;
+
+    pointer-events: none;
 }
 
 
-/* ========================= */
-/* ĐƯỜNG KẺ ĐỎ TRÊN ẢNH */
-/* ========================= */
+/* =========================================================
+   KẺ ĐỎ TRÊN CÁC Ô ẢNH
+   ========================================================= */
 
 .photo-slot::after {
     content: "";
@@ -106,35 +139,36 @@ body {
 
     inset: 0;
 
+    z-index: 3;
+
     pointer-events: none;
 
-    z-index: 2;
-
-    opacity: 0.5;
+    opacity: 0.55;
 
     background-image:
         linear-gradient(
-            rgba(180, 0, 0, 0.45) 1px,
+            rgba(150, 0, 0, 0.55) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(180, 0, 0, 0.45) 1px,
+            rgba(150, 0, 0, 0.55) 1px,
             transparent 1px
         );
 
-    background-size: 12px 12px;
+    background-size: 10px 10px;
 }
 
 
-/* ========================= */
-/* NÚT CHỌN FILE */
-/* ========================= */
+/* =========================================================
+   NÚT CHỌN ẢNH
+   ========================================================= */
 
 .photo-slot input {
     position: absolute;
 
-    inset: 0;
+    left: 0;
+    top: 0;
 
     width: 100%;
     height: 100%;
@@ -143,216 +177,287 @@ body {
 
     cursor: pointer;
 
-    z-index: 5;
+    z-index: 10;
+
+    margin: 0;
+    padding: 0;
 }
 
 
-/* ========================= */
-/* HIỆU ỨNG KHI DI CHUỘT */
-/* ========================= */
+/* =========================================================
+   HIỆU ỨNG KHI DI CHUỘT
+   ========================================================= */
 
 .photo-slot:hover {
-    transform: scale(1.015);
+    filter: brightness(1.12);
 
-    filter: brightness(1.08);
-
-    transition: 0.2s ease;
+    transform:
+        scale(1.015);
 }
 
 
-/* ================================================= */
-/* VỊ TRÍ CÁC Ô ẢNH */
-/* ================================================= */
-
-
 /*
-   ẢNH 1
-   Ô nhỏ góc trên bên trái
+   Không để hover làm mất góc nghiêng
+   của từng ảnh.
 */
+
+
+/* =========================================================
+   Ô ẢNH 01
+   Góc trên bên trái
+   ========================================================= */
 
 .slot-1 {
-    left: 4%;
-    top: 6.7%;
 
-    width: 18%;
-    height: 7.1%;
+    left: 7.4%;
+    top: 7.1%;
 
-    transform: rotate(-8deg);
+    width: 14.2%;
+    height: 7.5%;
+
+    transform: rotate(-7deg);
 }
 
 
-/*
-   ẢNH 2
-   Ô lớn góc trên bên phải
-*/
+/* =========================================================
+   Ô ẢNH 02
+   Ảnh lớn phía trên bên phải
+   ========================================================= */
 
 .slot-2 {
-    left: 50.5%;
-    top: 3.5%;
 
-    width: 43%;
-    height: 17.2%;
+    left: 51.0%;
+    top: 4.4%;
+
+    width: 43.2%;
+    height: 16.0%;
 
     transform: rotate(2deg);
 }
 
 
-/*
-   ẢNH 3
-   ẢNH TẬP THỂ
-*/
+/* =========================================================
+   Ô ẢNH 03
+   Ảnh tập thể
+   ========================================================= */
 
 .slot-3 {
-    left: 5.5%;
-    top: 34.7%;
 
-    width: 45%;
-    height: 14.2%;
+    left: 6.0%;
+    top: 35.0%;
+
+    width: 44.7%;
+    height: 12.9%;
 
     transform: rotate(-1deg);
 }
 
 
-/*
-   ẢNH 4
-   ẢNH NHỎ BÊN PHẢI
-*/
+/* =========================================================
+   Ô ẢNH 04
+   Ảnh nhỏ bên phải
+   ========================================================= */
 
 .slot-4 {
-    left: 79%;
-    top: 38%;
 
-    width: 17%;
-    height: 9.8%;
+    left: 81.2%;
+    top: 38.2%;
 
-    transform: rotate(8deg);
+    width: 16.0%;
+    height: 9.0%;
+
+    transform: rotate(7deg);
 }
 
 
-/* ================================================= */
-/* 8 ẢNH KHOẢNH KHẮC THANH XUÂN */
-/* ================================================= */
+/* =========================================================
+   KHOẢNH KHẮC THANH XUÂN
+   HÀNG 1
+   ========================================================= */
 
 
-/* Hàng 1 */
+/* ẢNH 05 */
 
 .slot-5 {
-    left: 7%;
+
+    left: 7.4%;
     top: 53.7%;
 
-    width: 19%;
-    height: 7%;
-    
+    width: 19.8%;
+    height: 7.3%;
+
     transform: rotate(-5deg);
 }
 
 
-.slot-6 {
-    left: 29%;
-    top: 53.7%;
+/* ẢNH 06 */
 
-    width: 19%;
-    height: 7%;
-    
+.slot-6 {
+
+    left: 29.2%;
+    top: 53.6%;
+
+    width: 19.5%;
+    height: 7.3%;
+
     transform: rotate(-1deg);
 }
 
 
+/* ẢNH 07 */
+
 .slot-7 {
-    left: 50%;
+
+    left: 50.5%;
     top: 53.5%;
 
-    width: 19%;
-    height: 7%;
+    width: 19.4%;
+    height: 7.3%;
 
     transform: rotate(-2deg);
 }
 
 
+/* ẢNH 08 */
+
 .slot-8 {
-    left: 72%;
+
+    left: 71.7%;
     top: 53.5%;
 
-    width: 20%;
-    height: 7.2%;
+    width: 20.0%;
+    height: 7.7%;
 
     transform: rotate(1deg);
 }
 
 
-/* Hàng 2 */
+/* =========================================================
+   KHOẢNH KHẮC THANH XUÂN
+   HÀNG 2
+   ========================================================= */
+
+
+/* ẢNH 09 */
 
 .slot-9 {
-    left: 8%;
+
+    left: 7.4%;
     top: 61.8%;
 
-    width: 19%;
-    height: 7.3%;
+    width: 20.3%;
+    height: 7.7%;
 
     transform: rotate(-4deg);
 }
 
 
+/* ẢNH 10 */
+
 .slot-10 {
-    left: 30%;
+
+    left: 29.4%;
     top: 61.8%;
 
-    width: 19%;
-    height: 7.3%;
+    width: 19.7%;
+    height: 7.7%;
 
     transform: rotate(1deg);
 }
 
+
+/* ẢNH 11 */
 
 .slot-11 {
-    left: 51%;
+
+    left: 51.0%;
     top: 61.8%;
 
-    width: 19%;
-    height: 7.3%;
+    width: 19.5%;
+    height: 7.7%;
 
     transform: rotate(1deg);
 }
 
 
+/* ẢNH 12 */
+
 .slot-12 {
-    left: 72%;
+
+    left: 71.7%;
     top: 61.5%;
 
-    width: 20%;
-    height: 8%;
+    width: 21.0%;
+    height: 8.2%;
 
     transform: rotate(2deg);
 }
 
 
-/* ================================================= */
-/* ẢNH CUỐI */
-/* ================================================= */
+/* =========================================================
+   ẢNH CUỐI TRANG
+   ========================================================= */
 
 .slot-13 {
-    left: 41%;
-    top: 91.5%;
 
-    width: 44%;
-    height: 8%;
+    left: 42.0%;
+    top: 92.0%;
+
+    width: 44.5%;
+    height: 7.4%;
 
     transform: rotate(1deg);
 }
 
 
-/* ========================= */
-/* ĐIỆN THOẠI */
-/* ========================= */
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 600px) {
 
     body {
-        background: #f5f5f5;
+        background: #f5f1df;
     }
 
     .yearbook {
+
         width: 100vw;
+
+        max-width: 100vw;
+
+        margin: 0;
+    }
+
+    .background {
+        width: 100%;
+        height: auto;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 601px) and (max-width: 1000px) {
+
+    .yearbook {
+        width: 100vw;
+    }
+
+}
+
+
+/* =========================================================
+   MÀN HÌNH RẤT LỚN
+   ========================================================= */
+
+@media (min-width: 1001px) {
+
+    .yearbook {
+        width: 900px;
     }
 
 }

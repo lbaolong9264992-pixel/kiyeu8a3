@@ -1,48 +1,38 @@
+/* =========================================================
+   KỈ YẾU 8A3
+   SCRIPT.JS
+
+   Ảnh được lưu trực tiếp trong GitHub.
+   Không cho người xem thay đổi ảnh.
+   ========================================================= */
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    const slots = document.querySelectorAll(".photo-slot");
+    /*
+     * Lấy tất cả ảnh trong các ô ảnh
+     */
+    const photos = document.querySelectorAll(".photo-slot img");
 
 
-    slots.forEach(function (slot) {
+    /*
+     * Hiển thị ảnh
+     */
+    photos.forEach(function (photo) {
 
-        const input = slot.querySelector("input");
-        const image = slot.querySelector("img");
+        photo.style.display = "block";
 
-
-        input.addEventListener("change", function () {
-
-            const file = this.files[0];
-
-            if (!file) {
-                return;
-            }
+    });
 
 
-            // Kiểm tra có phải ảnh không
-            if (!file.type.startsWith("image/")) {
+    /*
+     * Không cho kéo ảnh ra ngoài trang
+     */
+    photos.forEach(function (photo) {
 
-                alert("Vui lòng chọn một file hình ảnh!");
+        photo.addEventListener("dragstart", function (event) {
 
-                return;
-            }
-
-
-            // Tạo đường dẫn tạm thời cho ảnh
-            const imageURL = URL.createObjectURL(file);
-
-
-            // Hiển thị ảnh
-            image.src = imageURL;
-
-            image.style.display = "block";
-
-
-            // Khi ảnh load xong
-            image.onload = function () {
-
-                URL.revokeObjectURL(imageURL);
-
-            };
+            event.preventDefault();
 
         });
 

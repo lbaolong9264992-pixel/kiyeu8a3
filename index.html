@@ -2,25 +2,330 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Kỉ Yếu 8A3</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background: #f5f2df;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* =========================================
+           TRANG KỈ YẾU
+           ========================================= */
+
+        .yearbook {
+            position: relative;
+            width: min(100vw, 853px);
+            margin: 0 auto;
+            line-height: 0;
+        }
+
+        /* Ảnh nền */
+        .background {
+            display: block;
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* =========================================
+           KHUNG ẢNH
+           ========================================= */
+
+        .photo-slot {
+            position: absolute;
+            z-index: 5;
+
+            background: #fffdf5;
+
+            border: 5px solid #ffffff;
+
+            box-shadow:
+                0 5px 18px rgba(72, 83, 47, 0.18),
+                inset 0 0 0 1px rgba(80, 100, 60, 0.08);
+
+            overflow: hidden;
+
+            line-height: normal;
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .photo-slot:hover {
+            transform: scale(1.015);
+
+            box-shadow:
+                0 10px 28px rgba(58, 80, 35, 0.25),
+                inset 0 0 0 1px rgba(80, 100, 60, 0.1);
+        }
+
+        .photo-slot img {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            background: #fffdf5;
+        }
+
+
+        /* =========================================
+           VỊ TRÍ ẢNH
+           
+           Các vị trí này bám theo ảnh nền 853 x 1844.
+           ========================================= */
+
+        /* Ảnh lớn phía trên bên phải */
+        .slot-1 {
+            left: 50.9%;
+            top: 4.35%;
+            width: 43.9%;
+            height: 16.6%;
+        }
+
+        /* Ảnh nhỏ phía trên bên trái */
+        .slot-2 {
+            left: 4.7%;
+            top: 7.6%;
+            width: 15.2%;
+            height: 7.7%;
+        }
+
+        /* Ảnh lớn giữa bên trái */
+        .slot-3 {
+            left: 5.5%;
+            top: 34.9%;
+            width: 44.6%;
+            height: 13.2%;
+        }
+
+        /* Ảnh nhỏ bên phải */
+        .slot-4 {
+            left: 82.9%;
+            top: 40.8%;
+            width: 14.2%;
+            height: 7.7%;
+        }
+
+        /* Ảnh lời chúc 1 */
+        .slot-5 {
+            left: 8.4%;
+            top: 55.7%;
+            width: 18.5%;
+            height: 5.8%;
+        }
+
+        /* Ảnh lời chúc 2 */
+        .slot-6 {
+            left: 29.9%;
+            top: 55.8%;
+            width: 18.2%;
+            height: 5.8%;
+        }
+
+        /* Ảnh lời chúc 3 */
+        .slot-7 {
+            left: 49.9%;
+            top: 55.8%;
+            width: 18.3%;
+            height: 5.8%;
+        }
+
+        /* Ảnh lời chúc 4 */
+        .slot-8 {
+            left: 70.8%;
+            top: 55.8%;
+            width: 18.4%;
+            height: 5.8%;
+        }
+
+        /* Ảnh lời chúc 5 */
+        .slot-9 {
+            left: 8.5%;
+            top: 62.6%;
+            width: 18.5%;
+            height: 5.7%;
+        }
+
+        /* Ảnh lời chúc 6 */
+        .slot-10 {
+            left: 29.9%;
+            top: 62.5%;
+            width: 18.2%;
+            height: 5.7%;
+        }
+
+        /* Ảnh lời chúc 7 */
+        .slot-11 {
+            left: 50%;
+            top: 62.5%;
+            width: 18.2%;
+            height: 5.7%;
+        }
+
+        /* Ảnh lời chúc 8 */
+        .slot-12 {
+            left: 70.9%;
+            top: 62.5%;
+            width: 18.2%;
+            height: 5.7%;
+        }
+
+        /* Ảnh cuối trang */
+        .slot-13 {
+            left: 42.2%;
+            top: 91.8%;
+            width: 43.5%;
+            height: 7.9%;
+        }
+
+
+        /* =========================================
+           LỚP HIỆU ỨNG RƠI
+           ========================================= */
+
+        #falling-effects {
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+
+            z-index: 9999;
+
+            overflow: hidden;
+        }
+
+        .falling-item {
+            position: absolute;
+
+            top: -50px;
+
+            user-select: none;
+
+            pointer-events: none;
+
+            will-change: transform;
+
+            animation:
+                falling linear forwards;
+        }
+
+        @keyframes falling {
+
+            0% {
+                transform:
+                    translate3d(0, -60px, 0)
+                    rotate(0deg);
+            }
+
+            25% {
+                transform:
+                    translate3d(25px, 25vh, 0)
+                    rotate(90deg);
+            }
+
+            50% {
+                transform:
+                    translate3d(-25px, 50vh, 0)
+                    rotate(180deg);
+            }
+
+            75% {
+                transform:
+                    translate3d(20px, 75vh, 0)
+                    rotate(270deg);
+            }
+
+            100% {
+                transform:
+                    translate3d(-10px, 110vh, 0)
+                    rotate(360deg);
+            }
+        }
+
+
+        /* =========================================
+           ĐIỆN THOẠI
+           ========================================= */
+
+        @media (max-width: 600px) {
+
+            .photo-slot {
+                border-width: 2px;
+            }
+
+            .slot-1 {
+                border-width: 3px;
+            }
+
+            #falling-effects {
+                opacity: 0.8;
+            }
+        }
+
+
+        /* =========================================
+           GIẢM CHUYỂN ĐỘNG
+           ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .falling-item {
+                animation: none !important;
+                display: none;
+            }
+
+            .photo-slot {
+                transition: none;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
+    <!-- =========================================
+         HIỆU ỨNG HOA / TUYẾT
+         ========================================= -->
+
+    <div id="falling-effects"></div>
+
+
+    <!-- =========================================
+         TRANG KỈ YẾU
+         ========================================= -->
+
     <main class="yearbook">
 
-        <!-- =================================================
-             ẢNH NỀN KỈ YẾU
-             ================================================= -->
-
+        <!-- ẢNH NỀN -->
         <img
             class="background"
             src="kyyeu.png"
@@ -28,10 +333,7 @@
         >
 
 
-        <!-- =================================================
-             ẢNH 01
-             ================================================= -->
-
+        <!-- ẢNH 01 -->
         <div class="photo-slot slot-1">
             <img
                 src="anh1.png"
@@ -40,10 +342,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 02
-             ================================================= -->
-
+        <!-- ẢNH 02 -->
         <div class="photo-slot slot-2">
             <img
                 src="anh2.png"
@@ -52,10 +351,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 03
-             ================================================= -->
-
+        <!-- ẢNH 03 -->
         <div class="photo-slot slot-3">
             <img
                 src="anh3.png"
@@ -64,10 +360,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 04
-             ================================================= -->
-
+        <!-- ẢNH 04 -->
         <div class="photo-slot slot-4">
             <img
                 src="anh4.png"
@@ -76,10 +369,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 05
-             ================================================= -->
-
+        <!-- ẢNH 05 -->
         <div class="photo-slot slot-5">
             <img
                 src="anh5.png"
@@ -88,10 +378,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 06
-             ================================================= -->
-
+        <!-- ẢNH 06 -->
         <div class="photo-slot slot-6">
             <img
                 src="anh6.png"
@@ -100,11 +387,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 07
-             LƯU Ý: ẢNH NÀY LÀ JPG
-             ================================================= -->
-
+        <!-- ẢNH 07 -->
         <div class="photo-slot slot-7">
             <img
                 src="anh7.jpg"
@@ -113,10 +396,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 08
-             ================================================= -->
-
+        <!-- ẢNH 08 -->
         <div class="photo-slot slot-8">
             <img
                 src="anh8.png"
@@ -125,10 +405,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 09
-             ================================================= -->
-
+        <!-- ẢNH 09 -->
         <div class="photo-slot slot-9">
             <img
                 src="anh9.png"
@@ -137,10 +414,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 10
-             ================================================= -->
-
+        <!-- ẢNH 10 -->
         <div class="photo-slot slot-10">
             <img
                 src="anh10.png"
@@ -149,10 +423,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 11
-             ================================================= -->
-
+        <!-- ẢNH 11 -->
         <div class="photo-slot slot-11">
             <img
                 src="anh11.png"
@@ -161,10 +432,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 12
-             ================================================= -->
-
+        <!-- ẢNH 12 -->
         <div class="photo-slot slot-12">
             <img
                 src="anh12.png"
@@ -173,10 +441,7 @@
         </div>
 
 
-        <!-- =================================================
-             ẢNH 13
-             ================================================= -->
-
+        <!-- ẢNH 13 -->
         <div class="photo-slot slot-13">
             <img
                 src="anh13.png"
@@ -187,11 +452,126 @@
     </main>
 
 
-    <!-- =================================================
-         JAVASCRIPT
-         ================================================= -->
+    <!-- =========================================
+         JAVASCRIPT HIỆU ỨNG
+         ========================================= -->
 
-    <script src="script.js"></script>
+    <script>
+
+        const effectContainer =
+            document.getElementById("falling-effects");
+
+
+        /*
+         * Có thể đổi thành:
+         *
+         * "❄"  = tuyết
+         * "🌸" = hoa
+         * "✿"  = hoa nhỏ
+         *
+         * Mình cho cả hoa + tuyết để trang mềm mại hơn.
+         */
+
+        const effects = [
+            "❄",
+            "❄",
+            "✿",
+            "🌸",
+            "❄",
+            "✿",
+            "❄"
+        ];
+
+
+        function createFallingItem() {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "falling-item";
+
+
+            /* Chọn ngẫu nhiên hoa hoặc tuyết */
+            item.textContent =
+                effects[
+                    Math.floor(
+                        Math.random() * effects.length
+                    )
+                ];
+
+
+            /* Vị trí ngang */
+            item.style.left =
+                Math.random() * 100 + "vw";
+
+
+            /* Kích thước */
+            const size =
+                10 + Math.random() * 18;
+
+            item.style.fontSize =
+                size + "px";
+
+
+            /* Độ trong suốt */
+            item.style.opacity =
+                0.35 + Math.random() * 0.55;
+
+
+            /* Thời gian rơi */
+            const duration =
+                7 + Math.random() * 8;
+
+            item.style.animationDuration =
+                duration + "s";
+
+
+            /* Độ trễ */
+            item.style.animationDelay =
+                Math.random() * 2 + "s";
+
+
+            effectContainer.appendChild(item);
+
+
+            /*
+             * Xóa phần tử sau khi rơi xong
+             * để website không bị nặng.
+             */
+
+            setTimeout(() => {
+
+                item.remove();
+
+            }, (duration + 3) * 1000);
+        }
+
+
+        /*
+         * Tạo hạt liên tục.
+         * 350ms = khoảng 3 hạt/giây.
+         */
+
+        setInterval(
+            createFallingItem,
+            350
+        );
+
+
+        /*
+         * Tạo sẵn vài hạt ngay khi mở trang.
+         */
+
+        for (let i = 0; i < 20; i++) {
+
+            setTimeout(
+                createFallingItem,
+                i * 120
+            );
+        }
+
+    </script>
 
 </body>
 </html>
